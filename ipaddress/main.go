@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"regexp"
+	"net"
 )
 
 func main() {
@@ -19,10 +20,22 @@ func main() {
 	for _, ipAddress := range ipAddresses {
 		fmt.Println(ipAddress)
 	}
+
+	_, ipnet, err := net.ParseCIDR("10.0.0.0/24")
+	if err != nil {
+		fmt.Println("Do Not Parse")
+	}
+	ip1 := net.ParseIP("10.0.0.1")
+	ip2 := net.ParseIP("10.1.0.1")
+	fmt.Println(ipnet.Contains(ip1)) // true
+	fmt.Println(ipnet.Contains(ip2)) // false
+
 }
 
 // Output
 //❯ go run ./main.go
 // 192.168.0.1
 // 10.0.0.1
+// true
+// false
 //
